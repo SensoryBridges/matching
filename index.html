@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/qxb843/Downloads/Career_Engagement_Dashboard.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decosimo Success Center — Career Engagement Platform</title>
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B2A4A;
+  --teal: #0d9488;
+  --teal-light: #ccfbf1;
+  --gold: #B8860B;
+  --gold-light: #fef3c7;
+  --red: #dc2626;
+  --red-bg: #fef2f2;
+  --yellow: #ca8a04;
+  --yellow-bg: #fefce8;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+.app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+/* NAV */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: var(--navy); border-radius: var(--radius); margin-bottom: 24px; }
+.nav-brand { font-family: 'Fraunces', serif; font-size: 18px; color: white; font-weight: 700; }
+.nav-brand span { color: var(--teal); }
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab { padding: 8px 18px; border-radius: 8px; border: none; background: transparent; color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.nav-tab:hover { color: white; background: rgba(255,255,255,0.1); }
+.nav-tab.active { color: var(--navy); background: white; }
+.nav-user { color: rgba(255,255,255,0.7); font-size: 12px; }
+
+/* PAGES */
+.page { display: none; animation: fadeIn 0.3s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* CARDS */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.card-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+.card-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+/* KPI CARDS */
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: relative; overflow: hidden; }
+.kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.kpi.green::before { background: var(--green); }
+.kpi.yellow::before { background: var(--yellow); }
+.kpi.red::before { background: var(--red); }
+.kpi-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.kpi-value { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 800; color: var(--navy); }
+.kpi-target { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.kpi-bar { height: 6px; background: #e2e8f0; border-radius: 3px; margin-top: 10px; overflow: hidden; }
+.kpi-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.kpi.green .kpi-fill { background: var(--green); }
+.kpi.yellow .kpi-fill { background: var(--yellow); }
+.kpi.red .kpi-fill { background: var(--red); }
+.kpi-badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.kpi.green .kpi-badge { background: var(--green-bg); color: var(--green); }
+.kpi.yellow .kpi-badge { background: var(--yellow-bg); color: var(--yellow); }
+.kpi.red .kpi-badge { background: var(--red-bg); color: var(--red); }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 14px; background: var(--navy); color: white; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+th:first-child { border-radius: 8px 0 0 0; }
+th:last-child { border-radius: 0 8px 0 0; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:hover td { background: #f8fafc; }
+.status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.status-dot.green { background: var(--green); }
+.status-dot.yellow { background: var(--yellow); }
+.status-dot.red { background: var(--red); }
+
+/* MATCH SCORE */
+.match-score { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; font-size: 14px; font-weight: 700; color: white; }
+.match-score.high { background: var(--green); }
+.match-score.med { background: var(--yellow); }
+.match-score.low { background: var(--red); }
+
+/* STRATEGIC GOAL TAGS */
+.goal-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px; margin: 2px 2px 2px 0; }
+.goal-ss { background: #dbeafe; color: #1e40af; }
+.goal-wa { background: #d1fae5; color: #065f46; }
+.goal-el { background: #fef3c7; color: #92400e; }
+.goal-ci { background: #ede9fe; color: #5b21b6; }
+
+/* TREND */
+.trend-row { display: flex; align-items: end; gap: 4px; height: 50px; margin-top: 8px; }
+.trend-bar { flex: 1; background: var(--teal); border-radius: 3px 3px 0 0; min-height: 4px; transition: height 0.4s ease; opacity: 0.7; }
+.trend-bar:last-child { opacity: 1; }
+
+/* STUDENT PROFILE */
+.profile-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.2s; }
+.profile-card:hover { border-color: var(--teal); box-shadow: 0 4px 12px rgba(13,148,136,0.12); transform: translateY(-2px); }
+.profile-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; margin-bottom: 12px; }
+.profile-name { font-weight: 700; font-size: 15px; }
+.profile-major { font-size: 12px; color: var(--muted); }
+.strengths { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+.strength-tag { font-size: 10px; background: var(--teal-light); color: var(--teal); padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+/* EMPLOYER CARD */
+.employer-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.employer-logo { width: 40px; height: 40px; border-radius: 8px; background: var(--gold-light); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 10px; }
+.employer-name { font-weight: 700; font-size: 14px; }
+.employer-industry { font-size: 11px; color: var(--muted); }
+
+/* MATCH DETAIL */
+.match-detail { background: var(--green-bg); border: 1px solid #86efac; border-radius: 8px; padding: 14px; margin-top: 10px; font-size: 12px; color: #166534; line-height: 1.6; }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: white; border-radius: 16px; padding: 32px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; }
+.modal h2 { font-family: 'Fraunces', serif; color: var(--navy); margin-bottom: 16px; }
+.modal-close { float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--muted); }
+
+/* FILTER BAR */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.filter-btn:hover, .filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+/* WEEK SELECTOR */
+.week-selector { display: flex; align-items: center; gap: 8px; }
+.week-selector select { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 13px; }
+
+/* FUNNEL */
+.funnel { display: flex; flex-direction: column; gap: 6px; }
+.funnel-step { display: flex; align-items: center; gap: 12px; }
+.funnel-bar-wrap { flex: 1; height: 32px; background: #f1f5f9; border-radius: 6px; overflow: hidden; }
+.funnel-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 12px; font-size: 12px; font-weight: 700; color: white; transition: width 0.5s ease; }
+.funnel-label { width: 140px; font-size: 12px; font-weight: 600; text-align: right; }
+.funnel-count { width: 50px; font-size: 13px; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">Decosimo <span>Success Center</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage(&#39;dashboard&#39;)">Dashboard</button>
+    <button class="nav-tab" onclick="showPage(&#39;matching&#39;)">Student Matching</button>
+    <button class="nav-tab" onclick="showPage(&#39;employers&#39;)">Employer Pipeline</button>
+    <button class="nav-tab" onclick="showPage(&#39;trends&#39;)">Trend Tracker</button>
+  </div>
+  <div class="nav-user">Gary W. Rollins College of Business • UTC</div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- PAGE 1: DASHBOARD -->
+<!-- ============================================================ -->
+<div id="page-dashboard" class="page active">
+
+  <!-- WEEK SELECTOR -->
+  <div class="card" style="padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <span style="font-weight: 700; font-size: 14px;">Career Engagement KPI Dashboard</span>
+      <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">Spring 2026 Semester</span>
+    </div>
+    <div class="week-selector">
+      <label style="font-size: 12px; font-weight: 600;">Week:</label>
+      <select id="weekSelect" onchange="updateDashboard()">
+        <option value="0">Week 1</option>
+        <option value="1">Week 2</option>
+        <option value="2">Week 3</option>
+        <option value="3">Week 4</option>
+        <option value="4" selected="">Week 5</option>
+        <option value="5">Week 6</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="grid-4" id="kpiGrid">
+      <div class="kpi green">
+        <div class="kpi-badge">127%</div>
+        <div class="kpi-label">Employer Outreach (emails)</div>
+        <div class="kpi-value">19</div>
+        <div class="kpi-target">Target: 15/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">100%</div>
+        <div class="kpi-label">Workshops Delivered</div>
+        <div class="kpi-value">1</div>
+        <div class="kpi-target">Target: 1/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">100%</div>
+        <div class="kpi-label">1:1 Student Sessions</div>
+        <div class="kpi-value">8</div>
+        <div class="kpi-target">Target: 8/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">100%</div>
+        <div class="kpi-label">New Employer Contacts</div>
+        <div class="kpi-value">3</div>
+        <div class="kpi-target">Target: 3/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">200%</div>
+        <div class="kpi-label">Internship Postings Sourced</div>
+        <div class="kpi-value">4</div>
+        <div class="kpi-target">Target: 2/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">100%</div>
+        <div class="kpi-label">Student Placements</div>
+        <div class="kpi-value">1</div>
+        <div class="kpi-target">Target: 1/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">100%</div>
+        <div class="kpi-label">FDS Survey Responses</div>
+        <div class="kpi-value">5</div>
+        <div class="kpi-target">Target: 5/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-badge">103%</div>
+        <div class="kpi-label">Student Satisfaction (%)</div>
+        <div class="kpi-value">93%</div>
+        <div class="kpi-target">Target: 90%/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: 100%"></div></div>
+      </div></div>
+
+  <!-- STRATEGIC GOAL ALIGNMENT + FUNNEL -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Employer Pipeline Funnel</div>
+      <div class="card-subtitle">Semester-to-date conversion</div>
+      <div style="margin-top: 16px;">
+        <div class="funnel" id="funnelChart">
+    <div class="funnel-step">
+      <div class="funnel-label">Total Contacts</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: 100%; background: #1B2A4A;">6300</div></div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-label">Active Organizations</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: 8%; background: #3b82f6;">30</div></div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-label">Active Postings</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: 8%; background: #0d9488;">12</div></div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-label">Interviews Scheduled</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: 8%; background: #B8860B;">7</div></div>
+    </div>
+    <div class="funnel-step">
+      <div class="funnel-label">Placements Made</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: 8%; background: #16a34a;">5</div></div>
+    </div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">KPI-to-Strategy Alignment</div>
+      <div class="card-subtitle">Sliceable by strategic goal category</div>
+      <div class="filter-bar" style="margin-top: 12px;">
+        <button class="filter-btn active" onclick="filterGoal(&#39;all&#39;, this)">All</button>
+        <button class="filter-btn" onclick="filterGoal(&#39;ss&#39;, this)">Student Success</button>
+        <button class="filter-btn" onclick="filterGoal(&#39;wa&#39;, this)">Workforce Alignment</button>
+        <button class="filter-btn" onclick="filterGoal(&#39;el&#39;, this)">Experiential Learning</button>
+        <button class="filter-btn" onclick="filterGoal(&#39;ci&#39;, this)">Continuous Improvement</button>
+      </div>
+      <table id="goalTable">
+        <thead><tr><th>KPI</th><th>Status</th><th>Strategic Goal</th></tr></thead>
+        <tbody><tr>
+      <td>Employer Outreach (emails)</td>
+      <td><span class="status-dot green"></span>127%</td>
+      <td><span class="goal-tag goal-wa">Workforce Alignment &amp; Employer Engagement</span></td>
+    </tr><tr>
+      <td>Workshops Delivered</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td><span class="goal-tag goal-ss">Student Success &amp; Career Readiness</span></td>
+    </tr><tr>
+      <td>1:1 Student Sessions</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td><span class="goal-tag goal-ss">Student Success &amp; Career Readiness</span></td>
+    </tr><tr>
+      <td>New Employer Contacts</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td><span class="goal-tag goal-wa">Workforce Alignment &amp; Employer Engagement</span></td>
+    </tr><tr>
+      <td>Internship Postings Sourced</td>
+      <td><span class="status-dot green"></span>200%</td>
+      <td><span class="goal-tag goal-el">Experiential Learning &amp; Career Outcomes</span></td>
+    </tr><tr>
+      <td>Student Placements</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td><span class="goal-tag goal-el">Experiential Learning &amp; Career Outcomes</span></td>
+    </tr><tr>
+      <td>FDS Survey Responses</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td><span class="goal-tag goal-ci">Continuous Improvement &amp; Accountability</span></td>
+    </tr><tr>
+      <td>Student Satisfaction (%)</td>
+      <td><span class="status-dot green"></span>103%</td>
+      <td><span class="goal-tag goal-ci">Continuous Improvement &amp; Accountability</span></td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEMESTER KPI TABLE -->
+  <div class="card">
+    <div class="card-title">Semester-to-Date KPI Detail</div>
+    <div class="card-subtitle">Auto-calculated from weekly inputs • Conditional formatting: 🟩 ≥100% • 🟨 75-99% • 🟥 &lt;75%</div>
+    <div style="overflow-x: auto; margin-top: 12px;">
+      <table id="semesterTable">
+        <thead><tr><th>KPI</th><th>Weekly Target</th><th>This Week</th><th>% Weekly</th><th>Semester Target</th><th>Semester Actual</th><th>% Semester</th><th>Status</th></tr></thead>
+        <tbody><tr>
+      <td style="font-weight: 600;">Employer Outreach (emails)</td>
+      <td>15</td>
+      <td style="font-weight: 700;">19</td>
+      <td><span class="status-dot green"></span>127%</td>
+      <td>225</td>
+      <td style="font-weight: 700;">79</td>
+      <td><span class="status-dot red"></span>35%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">Workshops Delivered</td>
+      <td>1</td>
+      <td style="font-weight: 700;">1</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td>15</td>
+      <td style="font-weight: 700;">6</td>
+      <td><span class="status-dot red"></span>40%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">1:1 Student Sessions</td>
+      <td>8</td>
+      <td style="font-weight: 700;">8</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td>120</td>
+      <td style="font-weight: 700;">40</td>
+      <td><span class="status-dot red"></span>33%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">New Employer Contacts</td>
+      <td>3</td>
+      <td style="font-weight: 700;">3</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td>45</td>
+      <td style="font-weight: 700;">17</td>
+      <td><span class="status-dot red"></span>38%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">Internship Postings Sourced</td>
+      <td>2</td>
+      <td style="font-weight: 700;">4</td>
+      <td><span class="status-dot green"></span>200%</td>
+      <td>30</td>
+      <td style="font-weight: 700;">12</td>
+      <td><span class="status-dot red"></span>40%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">Student Placements</td>
+      <td>1</td>
+      <td style="font-weight: 700;">1</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td>15</td>
+      <td style="font-weight: 700;">5</td>
+      <td><span class="status-dot red"></span>33%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">FDS Survey Responses</td>
+      <td>5</td>
+      <td style="font-weight: 700;">5</td>
+      <td><span class="status-dot green"></span>100%</td>
+      <td>75</td>
+      <td style="font-weight: 700;">25</td>
+      <td><span class="status-dot red"></span>33%</td>
+      <td>🟩</td>
+    </tr><tr>
+      <td style="font-weight: 600;">Student Satisfaction (%)</td>
+      <td>90%</td>
+      <td style="font-weight: 700;">93%</td>
+      <td><span class="status-dot green"></span>103%</td>
+      <td>90%</td>
+      <td style="font-weight: 700;">93%</td>
+      <td><span class="status-dot green"></span>103%</td>
+      <td>🟩</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 2: STUDENT MATCHING -->
+<!-- ============================================================ -->
+<div id="page-matching" class="page">
+  <div class="card" style="padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <span style="font-weight: 700; font-size: 14px;">Student-Employer Behavioral Matching</span>
+      <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">Powered by strengths, values &amp; communication alignment</span>
+    </div>
+    <button style="padding: 8px 16px; background: var(--teal); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: &#39;DM Sans&#39;;">+ New Student Assessment</button>
+  </div>
+
+  <div class="grid-3" id="studentGrid">
+    <div class="profile-card" onclick="showMatches(1)">
+      <div class="profile-avatar">JM</div>
+      <div class="profile-name">Jordan M.</div>
+      <div class="profile-major">Marketing • Junior</div>
+      <div class="strengths"><span class="strength-tag">Strategic</span><span class="strength-tag">Communication</span><span class="strength-tag">Woo</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Creativity, Autonomy, Impact</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Direct, energetic, pitch-ready</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>
+    <div class="profile-card" onclick="showMatches(2)">
+      <div class="profile-avatar">PK</div>
+      <div class="profile-name">Priya K.</div>
+      <div class="profile-major">Accounting • Senior</div>
+      <div class="strengths"><span class="strength-tag">Analytical</span><span class="strength-tag">Discipline</span><span class="strength-tag">Responsibility</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Accuracy, Stability, Growth</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Precise, data-driven, methodical</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>
+    <div class="profile-card" onclick="showMatches(3)">
+      <div class="profile-avatar">MT</div>
+      <div class="profile-name">Marcus T.</div>
+      <div class="profile-major">Management • Junior</div>
+      <div class="strengths"><span class="strength-tag">Empathy</span><span class="strength-tag">Arranger</span><span class="strength-tag">Includer</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Team Culture, Mentorship, Service</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Warm, collaborative, consensus-builder</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>
+    <div class="profile-card" onclick="showMatches(4)">
+      <div class="profile-avatar">AR</div>
+      <div class="profile-name">Ava R.</div>
+      <div class="profile-major">Finance • Senior</div>
+      <div class="strengths"><span class="strength-tag">Achiever</span><span class="strength-tag">Focus</span><span class="strength-tag">Deliberative</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Excellence, Challenge, Integrity</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Results-oriented, thorough, measured</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>
+    <div class="profile-card" onclick="showMatches(5)">
+      <div class="profile-avatar">EW</div>
+      <div class="profile-name">Eli W.</div>
+      <div class="profile-major">Entrepreneurship • Sophomore</div>
+      <div class="strengths"><span class="strength-tag">Ideation</span><span class="strength-tag">Futuristic</span><span class="strength-tag">Activator</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Innovation, Risk-Taking, Freedom</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Visionary, fast-paced, prototype-thinker</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>
+    <div class="profile-card" onclick="showMatches(6)">
+      <div class="profile-avatar">SL</div>
+      <div class="profile-name">Sofia L.</div>
+      <div class="profile-major">Supply Chain • Senior</div>
+      <div class="strengths"><span class="strength-tag">Learner</span><span class="strength-tag">Input</span><span class="strength-tag">Context</span></div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: Efficiency, Systems, Improvement</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: Analytical, detail-oriented, process-focused</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div></div>
+
+  <!-- MATCH RESULTS -->
+  <div class="card" id="matchResults" style="display: none;">
+    <div class="card-title" id="matchTitle">Match Results</div>
+    <div class="card-subtitle">Ranked by behavioral fit score — not keywords</div>
+    <table id="matchTable" style="margin-top: 12px;">
+      <thead><tr><th>Rank</th><th>Score</th><th>Employer</th><th>Role</th><th>Why This Matches</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 3: EMPLOYER PIPELINE -->
+<!-- ============================================================ -->
+<div id="page-employers" class="page">
+  <div class="card" style="padding: 14px 24px;">
+    <span style="font-weight: 700; font-size: 14px;">Employer Relationship Pipeline</span>
+    <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">6,300+ contacts • 30+ organizations • 16 industries</span>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterIndustry(&#39;all&#39;, this)">All Industries</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;tech&#39;, this)">Technology</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;health&#39;, this)">Healthcare</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;finance&#39;, this)">Finance</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;mfg&#39;, this)">Manufacturing</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;edu&#39;, this)">Education</button>
+    <button class="filter-btn" onclick="filterIndustry(&#39;gov&#39;, this)">Government</button>
+  </div>
+
+  <div class="card">
+    <table id="employerTable">
+      <thead><tr><th>Organization</th><th>Industry</th><th>Contact Depth</th><th>Active Postings</th><th>Placements (YTD)</th><th>Engagement Status</th></tr></thead>
+      <tbody><tr>
+        <td style="font-weight: 600;">Unum Group</td>
+        <td style="text-transform: capitalize;">finance</td>
+        <td>45 contacts</td>
+        <td>3</td>
+        <td>2</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">BlueCross BlueShield TN</td>
+        <td style="text-transform: capitalize;">health</td>
+        <td>38 contacts</td>
+        <td>2</td>
+        <td>1</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Volkswagen Chattanooga</td>
+        <td style="text-transform: capitalize;">mfg</td>
+        <td>52 contacts</td>
+        <td>4</td>
+        <td>3</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">TVA</td>
+        <td style="text-transform: capitalize;">gov</td>
+        <td>28 contacts</td>
+        <td>2</td>
+        <td>1</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Lamp Post Group</td>
+        <td style="text-transform: capitalize;">tech</td>
+        <td>22 contacts</td>
+        <td>3</td>
+        <td>0</td>
+        <td><span class="status-dot yellow"></span>Nurturing</td>
+      </tr><tr>
+        <td style="font-weight: 600;">CHI Memorial</td>
+        <td style="text-transform: capitalize;">health</td>
+        <td>35 contacts</td>
+        <td>2</td>
+        <td>1</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">EPB Fiber Optics</td>
+        <td style="text-transform: capitalize;">tech</td>
+        <td>18 contacts</td>
+        <td>1</td>
+        <td>1</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">First Horizon Bank</td>
+        <td style="text-transform: capitalize;">finance</td>
+        <td>30 contacts</td>
+        <td>2</td>
+        <td>0</td>
+        <td><span class="status-dot yellow"></span>Nurturing</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Siskin Hospital</td>
+        <td style="text-transform: capitalize;">health</td>
+        <td>40 contacts</td>
+        <td>3</td>
+        <td>2</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Hamilton County Schools</td>
+        <td style="text-transform: capitalize;">edu</td>
+        <td>65 contacts</td>
+        <td>5</td>
+        <td>2</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Kenco Logistics</td>
+        <td style="text-transform: capitalize;">mfg</td>
+        <td>25 contacts</td>
+        <td>2</td>
+        <td>1</td>
+        <td><span class="status-dot green"></span>Active</td>
+      </tr><tr>
+        <td style="font-weight: 600;">Chattanooga FC</td>
+        <td style="text-transform: capitalize;">mfg</td>
+        <td>12 contacts</td>
+        <td>1</td>
+        <td>0</td>
+        <td><span class="status-dot teal"></span>New</td>
+      </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 4: TREND TRACKER -->
+<!-- ============================================================ -->
+<div id="page-trends" class="page">
+  <div class="card" style="padding: 14px 24px;">
+    <span style="font-weight: 700; font-size: 14px;">Weekly Trend Tracker</span>
+    <span style="font-size: 12px; color: var(--muted); margin-left: 8px;">Week-over-week performance for Power BI integration</span>
+  </div>
+
+  <div class="grid-2" id="trendGrid"><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">Employer Outreach (emails)</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 15/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 31.57894736842105px; background: #B8860B;" title="Week 1: 12"></div><div class="trend-bar" style="height: 47.368421052631575px; background: #16a34a;" title="Week 2: 18"></div><div class="trend-bar" style="height: 36.84210526315789px; background: #B8860B;" title="Week 3: 14"></div><div class="trend-bar" style="height: 42.10526315789473px; background: #16a34a;" title="Week 4: 16"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 5: 19"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">Workshops Delivered</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 1/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 1: 1"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 2: 1"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 3: 2"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 4: 1"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 5: 1"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">1:1 Student Sessions</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 8/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 30px; background: #B8860B;" title="Week 1: 6"></div><div class="trend-bar" style="height: 45px; background: #16a34a;" title="Week 2: 9"></div><div class="trend-bar" style="height: 35px; background: #B8860B;" title="Week 3: 7"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 4: 10"></div><div class="trend-bar" style="height: 40px; background: #16a34a;" title="Week 5: 8"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">New Employer Contacts</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 3/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 20px; background: #dc2626;" title="Week 1: 2"></div><div class="trend-bar" style="height: 40px; background: #16a34a;" title="Week 2: 4"></div><div class="trend-bar" style="height: 30px; background: #16a34a;" title="Week 3: 3"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 4: 5"></div><div class="trend-bar" style="height: 30px; background: #16a34a;" title="Week 5: 3"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">Internship Postings Sourced</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 2/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 12.5px; background: #dc2626;" title="Week 1: 1"></div><div class="trend-bar" style="height: 37.5px; background: #16a34a;" title="Week 2: 3"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 3: 2"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 4: 2"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 5: 4"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">Student Placements</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 1/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 4px; background: #dc2626;" title="Week 1: 0"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 2: 1"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 3: 1"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 4: 2"></div><div class="trend-bar" style="height: 25px; background: #16a34a;" title="Week 5: 1"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">FDS Survey Responses</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 5/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 21.428571428571427px; background: #dc2626;" title="Week 1: 3"></div><div class="trend-bar" style="height: 42.857142857142854px; background: #16a34a;" title="Week 2: 6"></div><div class="trend-bar" style="height: 28.57142857142857px; background: #B8860B;" title="Week 3: 4"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 4: 7"></div><div class="trend-bar" style="height: 35.714285714285715px; background: #16a34a;" title="Week 5: 5"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div><div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">Student Satisfaction (%)</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: 90/wk</div>
+      </div>
+      <div class="trend-row"><div class="trend-bar" style="height: 46.808510638297875px; background: #B8860B;" title="Week 1: 88"></div><div class="trend-bar" style="height: 48.93617021276596px; background: #16a34a;" title="Week 2: 92"></div><div class="trend-bar" style="height: 48.40425531914894px; background: #16a34a;" title="Week 3: 91"></div><div class="trend-bar" style="height: 50px; background: #16a34a;" title="Week 4: 94"></div><div class="trend-bar" style="height: 49.46808510638298px; background: #16a34a;" title="Week 5: 93"></div></div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div></div>
+
+  <div class="card">
+    <div class="card-title">Raw Trend Data (Power BI Export-Ready)</div>
+    <div class="card-subtitle">Clean fact table • No merged cells • No embedded formatting</div>
+    <div style="overflow-x: auto; margin-top: 12px;">
+      <table id="trendTable">
+        <thead><tr><th>KPI</th><th>Week 1</th><th>Week 2</th><th>Week 3</th><th>Week 4</th><th>Week 5</th><th>Week 6</th></tr></thead>
+        <tbody><tr>
+    <td style="font-weight: 600;">Employer Outreach (emails)</td>
+    <td>12</td><td>18</td><td>14</td><td>16</td><td>19</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">Workshops Delivered</td>
+    <td>1</td><td>1</td><td>2</td><td>1</td><td>1</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">1:1 Student Sessions</td>
+    <td>6</td><td>9</td><td>7</td><td>10</td><td>8</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">New Employer Contacts</td>
+    <td>2</td><td>4</td><td>3</td><td>5</td><td>3</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">Internship Postings Sourced</td>
+    <td>1</td><td>3</td><td>2</td><td>2</td><td>4</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">Student Placements</td>
+    <td>0</td><td>1</td><td>1</td><td>2</td><td>1</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">FDS Survey Responses</td>
+    <td>3</td><td>6</td><td>4</td><td>7</td><td>5</td><td>—</td>
+  </tr><tr>
+    <td style="font-weight: 600;">Student Satisfaction (%)</td>
+    <td>88</td><td>92</td><td>91</td><td>94</td><td>93</td><td>—</td>
+  </tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA MODEL — Power BI-Ready Structure
+// ============================================================
+const KPI_DATA = [
+  { id: 'outreach', label: 'Employer Outreach (emails)', weeklyTarget: 15, semTarget: 225, goal: 'wa', weeks: [12, 18, 14, 16, 19, 0] },
+  { id: 'workshops', label: 'Workshops Delivered', weeklyTarget: 1, semTarget: 15, goal: 'ss', weeks: [1, 1, 2, 1, 1, 0] },
+  { id: 'advising', label: '1:1 Student Sessions', weeklyTarget: 8, semTarget: 120, goal: 'ss', weeks: [6, 9, 7, 10, 8, 0] },
+  { id: 'new_employers', label: 'New Employer Contacts', weeklyTarget: 3, semTarget: 45, goal: 'wa', weeks: [2, 4, 3, 5, 3, 0] },
+  { id: 'internships', label: 'Internship Postings Sourced', weeklyTarget: 2, semTarget: 30, goal: 'el', weeks: [1, 3, 2, 2, 4, 0] },
+  { id: 'placements', label: 'Student Placements', weeklyTarget: 1, semTarget: 15, goal: 'el', weeks: [0, 1, 1, 2, 1, 0] },
+  { id: 'fds_responses', label: 'FDS Survey Responses', weeklyTarget: 5, semTarget: 75, goal: 'ci', weeks: [3, 6, 4, 7, 5, 0] },
+  { id: 'satisfaction', label: 'Student Satisfaction (%)', weeklyTarget: 90, semTarget: 90, goal: 'ci', weeks: [88, 92, 91, 94, 93, 0] },
+];
+
+const GOAL_NAMES = { ss: 'Student Success & Career Readiness', wa: 'Workforce Alignment & Employer Engagement', el: 'Experiential Learning & Career Outcomes', ci: 'Continuous Improvement & Accountability' };
+const GOAL_CLASS = { ss: 'goal-ss', wa: 'goal-wa', el: 'goal-el', ci: 'goal-ci' };
+
+// STUDENT DATA
+const STUDENTS = [
+  { id: 1, name: 'Jordan M.', initials: 'JM', major: 'Marketing', year: 'Junior', strengths: ['Strategic', 'Communication', 'Woo'], values: ['Creativity', 'Autonomy', 'Impact'], commStyle: 'Direct, energetic, pitch-ready' },
+  { id: 2, name: 'Priya K.', initials: 'PK', major: 'Accounting', year: 'Senior', strengths: ['Analytical', 'Discipline', 'Responsibility'], values: ['Accuracy', 'Stability', 'Growth'], commStyle: 'Precise, data-driven, methodical' },
+  { id: 3, name: 'Marcus T.', initials: 'MT', major: 'Management', year: 'Junior', strengths: ['Empathy', 'Arranger', 'Includer'], values: ['Team Culture', 'Mentorship', 'Service'], commStyle: 'Warm, collaborative, consensus-builder' },
+  { id: 4, name: 'Ava R.', initials: 'AR', major: 'Finance', year: 'Senior', strengths: ['Achiever', 'Focus', 'Deliberative'], values: ['Excellence', 'Challenge', 'Integrity'], commStyle: 'Results-oriented, thorough, measured' },
+  { id: 5, name: 'Eli W.', initials: 'EW', major: 'Entrepreneurship', year: 'Sophomore', strengths: ['Ideation', 'Futuristic', 'Activator'], values: ['Innovation', 'Risk-Taking', 'Freedom'], commStyle: 'Visionary, fast-paced, prototype-thinker' },
+  { id: 6, name: 'Sofia L.', initials: 'SL', major: 'Supply Chain', year: 'Senior', strengths: ['Learner', 'Input', 'Context'], values: ['Efficiency', 'Systems', 'Improvement'], commStyle: 'Analytical, detail-oriented, process-focused' },
+];
+
+// EMPLOYER DATA
+const EMPLOYERS = [
+  { name: 'Unum Group', industry: 'finance', contacts: 45, postings: 3, placements: 2, status: 'Active' },
+  { name: 'BlueCross BlueShield TN', industry: 'health', contacts: 38, postings: 2, placements: 1, status: 'Active' },
+  { name: 'Volkswagen Chattanooga', industry: 'mfg', contacts: 52, postings: 4, placements: 3, status: 'Active' },
+  { name: 'TVA', industry: 'gov', contacts: 28, postings: 2, placements: 1, status: 'Active' },
+  { name: 'Lamp Post Group', industry: 'tech', contacts: 22, postings: 3, placements: 0, status: 'Nurturing' },
+  { name: 'CHI Memorial', industry: 'health', contacts: 35, postings: 2, placements: 1, status: 'Active' },
+  { name: 'EPB Fiber Optics', industry: 'tech', contacts: 18, postings: 1, placements: 1, status: 'Active' },
+  { name: 'First Horizon Bank', industry: 'finance', contacts: 30, postings: 2, placements: 0, status: 'Nurturing' },
+  { name: 'Siskin Hospital', industry: 'health', contacts: 40, postings: 3, placements: 2, status: 'Active' },
+  { name: 'Hamilton County Schools', industry: 'edu', contacts: 65, postings: 5, placements: 2, status: 'Active' },
+  { name: 'Kenco Logistics', industry: 'mfg', contacts: 25, postings: 2, placements: 1, status: 'Active' },
+  { name: 'Chattanooga FC', industry: 'mfg', contacts: 12, postings: 1, placements: 0, status: 'New' },
+];
+
+const MATCH_DB = [
+  { employer: 'Lamp Post Group', role: 'Marketing Intern', fitFor: [1, 5], reason: { 1: 'Your Strategic + Communication strengths align with their startup-culture team that values pitch skills and autonomous work.', 5: 'Your Ideation + Futuristic strengths match their innovation-first culture. They want self-starters who prototype fast.' } },
+  { employer: 'Unum Group', role: 'Finance Analyst Intern', fitFor: [2, 4], reason: { 2: 'Your Analytical + Discipline strengths match their data-driven culture. Accuracy-first values align with their compliance environment.', 4: 'Your Achiever + Focus strengths fit their high-performance analyst track. They value thoroughness and results.' } },
+  { employer: 'Siskin Hospital', role: 'Patient Services Coordinator', fitFor: [3], reason: { 3: 'Your Empathy + Includer strengths are exactly what their therapy team looks for. Service-oriented values align with their patient-first mission.' } },
+  { employer: 'VW Chattanooga', role: 'Supply Chain Co-op', fitFor: [6], reason: { 6: 'Your Learner + Input strengths match their continuous improvement culture. Systems-thinking values align with their lean manufacturing approach.' } },
+  { employer: 'EPB Fiber Optics', role: 'Business Development Intern', fitFor: [1, 3], reason: { 1: 'Your Woo + Communication strengths fit their community-facing BD team. They value relationship builders.', 3: 'Your Arranger + Empathy strengths match their team-based project culture. Consensus-building is prized here.' } },
+  { employer: 'BlueCross BlueShield', role: 'Data Analytics Intern', fitFor: [2, 6], reason: { 2: 'Your Analytical + Responsibility strengths align with their healthcare data team. Precision is non-negotiable in this environment.', 6: 'Your Input + Context strengths match their research-intensive analytics department. Process focus is essential.' } },
+  { employer: 'Hamilton County Schools', role: 'Admin & Operations Intern', fitFor: [3, 5], reason: { 3: 'Your Empathy + Arranger strengths align with their student-services mission. Collaboration is the culture.', 5: 'Your Activator + Ideation strengths fit their innovation initiatives. They want fresh thinking applied to real problems.' } },
+  { employer: 'First Horizon Bank', role: 'Wealth Management Intern', fitFor: [4], reason: { 4: 'Your Deliberative + Focus strengths match their high-stakes advisory environment. Integrity-first values align with fiduciary culture.' } },
+];
+
+// ============================================================
+// RENDERING FUNCTIONS
+// ============================================================
+
+function getStatus(pct) {
+  if (pct >= 100) return 'green';
+  if (pct >= 75) return 'yellow';
+  return 'red';
+}
+
+function getStatusEmoji(pct) {
+  if (pct >= 100) return '🟩';
+  if (pct >= 75) return '🟨';
+  return '🟥';
+}
+
+function updateDashboard() {
+  const weekIdx = parseInt(document.getElementById('weekSelect').value);
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = '';
+
+  KPI_DATA.forEach(kpi => {
+    const val = kpi.weeks[weekIdx];
+    const pct = kpi.id === 'satisfaction' ? (val / kpi.weeklyTarget * 100) : (val / kpi.weeklyTarget * 100);
+    const semActual = kpi.weeks.slice(0, weekIdx + 1).reduce((a, b) => a + b, 0);
+    const semPct = kpi.id === 'satisfaction' ? (val / kpi.semTarget * 100) : (semActual / kpi.semTarget * 100);
+    const status = getStatus(pct);
+
+    grid.innerHTML += `
+      <div class="kpi ${status}">
+        <div class="kpi-badge">${Math.round(pct)}%</div>
+        <div class="kpi-label">${kpi.label}</div>
+        <div class="kpi-value">${kpi.id === 'satisfaction' ? val + '%' : val}</div>
+        <div class="kpi-target">Target: ${kpi.weeklyTarget}${kpi.id === 'satisfaction' ? '%' : ''}/week</div>
+        <div class="kpi-bar"><div class="kpi-fill" style="width: ${Math.min(pct, 100)}%"></div></div>
+      </div>`;
+  });
+
+  // Funnel
+  const funnelData = [
+    { label: 'Total Contacts', count: 6300, color: var_navy },
+    { label: 'Active Organizations', count: 30, color: '#3b82f6' },
+    { label: 'Active Postings', count: KPI_DATA[4].weeks.slice(0, weekIdx+1).reduce((a,b)=>a+b,0), color: var_teal },
+    { label: 'Interviews Scheduled', count: Math.round(KPI_DATA[4].weeks.slice(0, weekIdx+1).reduce((a,b)=>a+b,0) * 0.6), color: var_gold },
+    { label: 'Placements Made', count: KPI_DATA[5].weeks.slice(0, weekIdx+1).reduce((a,b)=>a+b,0), color: var_green },
+  ];
+  const maxCount = funnelData[0].count;
+  document.getElementById('funnelChart').innerHTML = funnelData.map(f => `
+    <div class="funnel-step">
+      <div class="funnel-label">${f.label}</div>
+      <div class="funnel-bar-wrap"><div class="funnel-bar-fill" style="width: ${Math.max((f.count/maxCount)*100, 8)}%; background: ${f.color};">${f.count}</div></div>
+    </div>`).join('');
+
+  // Goal table
+  renderGoalTable('all');
+
+  // Semester table
+  renderSemesterTable(weekIdx);
+}
+
+const var_navy = '#1B2A4A', var_teal = '#0d9488', var_gold = '#B8860B', var_green = '#16a34a';
+
+function renderGoalTable(goalFilter) {
+  const weekIdx = parseInt(document.getElementById('weekSelect').value);
+  const tbody = document.querySelector('#goalTable tbody');
+  tbody.innerHTML = '';
+  KPI_DATA.filter(k => goalFilter === 'all' || k.goal === goalFilter).forEach(kpi => {
+    const val = kpi.weeks[weekIdx];
+    const pct = val / kpi.weeklyTarget * 100;
+    const status = getStatus(pct);
+    tbody.innerHTML += `<tr>
+      <td>${kpi.label}</td>
+      <td><span class="status-dot ${status}"></span>${Math.round(pct)}%</td>
+      <td><span class="goal-tag ${GOAL_CLASS[kpi.goal]}">${GOAL_NAMES[kpi.goal]}</span></td>
+    </tr>`;
+  });
+}
+
+function filterGoal(goal, btn) {
+  document.querySelectorAll('#page-dashboard .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGoalTable(goal);
+}
+
+function renderSemesterTable(weekIdx) {
+  const tbody = document.querySelector('#semesterTable tbody');
+  tbody.innerHTML = '';
+  KPI_DATA.forEach(kpi => {
+    const thisWeek = kpi.weeks[weekIdx];
+    const weekPct = thisWeek / kpi.weeklyTarget * 100;
+    const semActual = kpi.id === 'satisfaction' ? thisWeek : kpi.weeks.slice(0, weekIdx + 1).reduce((a, b) => a + b, 0);
+    const semPct = semActual / kpi.semTarget * 100;
+    const status = getStatus(weekPct);
+    tbody.innerHTML += `<tr>
+      <td style="font-weight: 600;">${kpi.label}</td>
+      <td>${kpi.weeklyTarget}${kpi.id === 'satisfaction' ? '%' : ''}</td>
+      <td style="font-weight: 700;">${kpi.id === 'satisfaction' ? thisWeek + '%' : thisWeek}</td>
+      <td><span class="status-dot ${getStatus(weekPct)}"></span>${Math.round(weekPct)}%</td>
+      <td>${kpi.semTarget}${kpi.id === 'satisfaction' ? '%' : ''}</td>
+      <td style="font-weight: 700;">${kpi.id === 'satisfaction' ? semActual + '%' : semActual}</td>
+      <td><span class="status-dot ${getStatus(semPct)}"></span>${Math.round(semPct)}%</td>
+      <td>${getStatusEmoji(weekPct)}</td>
+    </tr>`;
+  });
+}
+
+// STUDENT MATCHING
+function renderStudents() {
+  const grid = document.getElementById('studentGrid');
+  grid.innerHTML = STUDENTS.map(s => `
+    <div class="profile-card" onclick="showMatches(${s.id})">
+      <div class="profile-avatar">${s.initials}</div>
+      <div class="profile-name">${s.name}</div>
+      <div class="profile-major">${s.major} &bull; ${s.year}</div>
+      <div class="strengths">${s.strengths.map(st => `<span class="strength-tag">${st}</span>`).join('')}</div>
+      <div style="margin-top: 8px; font-size: 11px; color: var(--muted);">Values: ${s.values.join(', ')}</div>
+      <div style="margin-top: 4px; font-size: 11px; color: var(--teal); font-weight: 600;">Style: ${s.commStyle}</div>
+      <div style="margin-top: 10px; font-size: 12px; color: var(--navy); font-weight: 600; cursor: pointer;">View Matches →</div>
+    </div>`).join('');
+}
+
+function showMatches(studentId) {
+  const student = STUDENTS.find(s => s.id === studentId);
+  const matches = MATCH_DB.filter(m => m.fitFor.includes(studentId))
+    .map(m => ({ ...m, score: 75 + Math.floor(Math.random() * 20) }))
+    .sort((a, b) => b.score - a.score);
+
+  document.getElementById('matchResults').style.display = 'block';
+  document.getElementById('matchTitle').textContent = `Top Matches for ${student.name}`;
+  const tbody = document.querySelector('#matchTable tbody');
+  tbody.innerHTML = matches.map((m, i) => `
+    <tr>
+      <td style="font-weight: 700; color: var(--navy);">#${i + 1}</td>
+      <td><div class="match-score ${m.score >= 90 ? 'high' : m.score >= 80 ? 'med' : 'low'}">${m.score}%</div></td>
+      <td style="font-weight: 600;">${m.employer}</td>
+      <td>${m.role}</td>
+      <td><div class="match-detail">${m.reason[studentId]}</div></td>
+    </tr>`).join('');
+
+  document.getElementById('matchResults').scrollIntoView({ behavior: 'smooth' });
+}
+
+// EMPLOYER TABLE
+function renderEmployers(industryFilter) {
+  const tbody = document.querySelector('#employerTable tbody');
+  tbody.innerHTML = EMPLOYERS
+    .filter(e => !industryFilter || industryFilter === 'all' || e.industry === industryFilter)
+    .map(e => {
+      const statusColor = e.status === 'Active' ? 'green' : e.status === 'Nurturing' ? 'yellow' : 'teal';
+      return `<tr>
+        <td style="font-weight: 600;">${e.name}</td>
+        <td style="text-transform: capitalize;">${e.industry}</td>
+        <td>${e.contacts} contacts</td>
+        <td>${e.postings}</td>
+        <td>${e.placements}</td>
+        <td><span class="status-dot ${statusColor}"></span>${e.status}</td>
+      </tr>`;
+    }).join('');
+}
+
+function filterIndustry(industry, btn) {
+  document.querySelectorAll('#page-employers .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderEmployers(industry);
+}
+
+// TREND TRACKER
+function renderTrends() {
+  const grid = document.getElementById('trendGrid');
+  grid.innerHTML = KPI_DATA.map(kpi => {
+    const max = Math.max(...kpi.weeks.filter(w => w > 0), kpi.weeklyTarget);
+    const bars = kpi.weeks.map((w, i) => {
+      if (w === 0 && i > 4) return '';
+      const h = Math.max((w / max) * 50, 4);
+      const status = getStatus(w / kpi.weeklyTarget * 100);
+      const color = status === 'green' ? var_green : status === 'yellow' ? var_gold : '#dc2626';
+      return `<div class="trend-bar" style="height: ${h}px; background: ${color};" title="Week ${i+1}: ${w}"></div>`;
+    }).join('');
+    return `<div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 700; font-size: 13px;">${kpi.label}</div>
+        <div style="font-size: 11px; color: var(--muted);">Target: ${kpi.weeklyTarget}/wk</div>
+      </div>
+      <div class="trend-row">${bars}</div>
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: var(--muted);">Wk 1</span>
+        <span style="font-size: 10px; color: var(--muted);">Wk 5</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Raw table
+  const tbody = document.querySelector('#trendTable tbody');
+  tbody.innerHTML = KPI_DATA.map(kpi => `<tr>
+    <td style="font-weight: 600;">${kpi.label}</td>
+    ${kpi.weeks.map((w, i) => `<td>${i <= 4 ? w : '\u2014'}</td>`).join('')}
+  </tr>`).join('');
+}
+
+// PAGE NAVIGATION
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(`page-${page}`).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+// INIT
+updateDashboard();
+renderStudents();
+renderEmployers('all');
+renderTrends();
+</script>
+
+
+</body></html>
